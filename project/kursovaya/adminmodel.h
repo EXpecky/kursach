@@ -12,7 +12,7 @@ class AdminModel : public QAbstractTableModel
 //    AdminModel();
 public:
     explicit AdminModel(QObject *parent = nullptr);
-
+    int getId (int index);
     // QAbstractItemModel interface
 public:
     int rowCount(const QModelIndex &parent) const;
@@ -21,12 +21,13 @@ public:
     QVariant headerData(int section, Qt::Orientation orientation, int role) const;
 
    // void sortByLogin();
-public:
-    QVector<orderData> orders;
+
+
 
 private:
 
     int direction = 0;
+    QVector<orderData> orders;
 };
 
 #endif // ADMINMODEL_H

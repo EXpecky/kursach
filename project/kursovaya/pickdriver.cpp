@@ -13,6 +13,9 @@ PickDriver::PickDriver(QWidget *parent) :
     database.selectDriver(driverVector);
     ui->comboBox->clear();
     ui->comboBox->addItems(driverVector);
+    ui->comboBox_2->hide();
+    ui->label_2->hide();
+    ui->daleteSecond_pushButton->hide();
 }
 
 PickDriver::~PickDriver()
@@ -47,12 +50,16 @@ void PickDriver::on_daleteSecond_pushButton_clicked()
     ui->comboBox_2->hide();
     ui->label_2->hide();
     ui->daleteSecond_pushButton->hide();
+
 }
 
 
 void PickDriver::on_accept_pushButton_clicked()
 {
-    emit accept(ui->comboBox->currentText());
+    emit accept(ui->comboBox->currentText(), ui->comboBox_2->currentText(), ui->comboBox_2->isVisible());
+    qDebug() << ui->comboBox_2->isVisible();
+    QMessageBox::information(this,"Успех!","Заявка подтверждена","ОК");
+    this->close();
 }
 
 

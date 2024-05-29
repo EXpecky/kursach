@@ -47,15 +47,15 @@ private slots:
 
     void on_accept_pushButton_clicked();
 
-    void getDataDriver(QString name);
-public:
-    AdminModel *orderModel;
+    void getDataDriver(QString name, const QString secName, const bool flag);
+
 
 private:
     Ui::Administrator *ui;
     Db database;
 
     PickDriver *pickD;
+    AdminModel *orderModel;
 };
 
 #endif // ADMINISTRATOR_H

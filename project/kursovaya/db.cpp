@@ -145,15 +145,15 @@ void Db::createOrderData(QVector<orderData>& orders)
     }
 
 }
-/* QString surnSDriver, QString nameSDriver,*/
-bool Db::insertWorks(QString surnFDriver, QString nameFDriver, orderData ord)
+/* */
+bool Db::insertWorks(QString surnFDriver, QString nameFDriver, QString surnSDriver, QString nameSDriver, int idOrd)
 {
     QSqlQuery query;
     query.prepare("INSERT INTO Works "
                   "values(:id, :idOrder, :idDriver, :idSecondDriver)");
-    query.bindValue(":idOrder", ord.Id);
+    query.bindValue(":idOrder", idOrd);
     query.bindValue(":idDriver", searchDriver(surnFDriver, nameFDriver));
-    query.bindValue("idSecondDriver", searchDriver(surnFDriver, nameFDriver));
+    query.bindValue(":idSecondDriver", searchDriver(surnSDriver, nameSDriver));
 
     return query.exec();
 }

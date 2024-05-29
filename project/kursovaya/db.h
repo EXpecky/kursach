@@ -26,7 +26,7 @@ public:
     bool insertOrders(QString login, QString discription, QString email, QString number, QString pointPogruzki, QString pointDostavki, int vesGruza);
     int searchID(QString login);
     void createOrderData(QVector<orderData>& orders);
-    bool insertWorks(QString surnFDriver, QString nameFDriver, orderData ord);
+    bool insertWorks(QString surnFDriver, QString nameFDriver, QString surnSDriver, QString nameSDriver, int idOrd);
     void selectDriver(QVector<QString>& driverVector);
     int searchDriver(QString surname, QString name);
     //int searchIdDriver();

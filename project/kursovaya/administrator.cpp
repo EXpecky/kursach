@@ -27,6 +27,7 @@ Administrator::Administrator(QWidget *parent) :
 Administrator::~Administrator()
 {
     delete ui;
+
 }
 
 void Administrator::on_exit_clicked()
@@ -159,17 +160,22 @@ void Administrator::on_accept_pushButton_clicked()
 
 
 }
-void Administrator::getDataDriver(const QString name)
+void Administrator::getDataDriver(const QString name, const QString secName, const bool flag)
 {
-    QVector<QString> fDriver;
-    fDriver = name.split(" ");
-
-    qDebug() << name.split(" ");
-    qDebug()<<name;
-
-    int indexOrder = ui->tableView->selectionModel()->selectedRows().first().row();
-    //orderModel->orders.at(indexOrder);
     database.openDatabase();
-    database.insertWorks(fDriver.at(0), fDriver.at(1), orderModel->orders.at(indexOrder));
+    int indexOrder = ui->tableView->selectionModel()->selectedRows().first().row();
+    qDebug() << flag;
+    if (flag == false){
+        QVector<QString> fDriver;
+        fDriver = name.split(" ");
+        database.insertWorks(fDriver.at(0), fDriver.at(1),"NULL", "NULL", orderModel->getId(indexOrder));
+    }else{
+        QVector <QString> fDriver;
+        fDriver = name.split(" ");
+        QVector <QString> sDriver;
+        sDriver = secName.split(" ");
+        database.insertWorks(fDriver.at(0), fDriver.at(1), sDriver.at(0), sDriver.at(1), orderModel->getId(indexOrder));
+    }
+
 }
 

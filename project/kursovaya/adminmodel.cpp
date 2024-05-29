@@ -61,4 +61,9 @@ QVariant AdminModel::headerData(int section, Qt::Orientation orientation, int ro
     }
     return {};
 }
+
+int AdminModel::getId(int index)
+{
+    return orders.at(index).Id;
+}
 //}

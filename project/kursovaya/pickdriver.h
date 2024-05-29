@@ -2,7 +2,7 @@
 #define PICKDRIVER_H
 
 #include <QWidget>
-
+#include <QMessageBox>
 #include "db.h"
 #include "driverdata.h"
 
@@ -20,7 +20,7 @@ public:
 
 signals:
     void back();
-    void accept(const QString name);
+    void accept(const QString name, const QString secName, const bool flag);
 
 private slots:
     void on_back_pushButton_clicked();
