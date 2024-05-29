@@ -1,0 +1,30 @@
+@startuml
+
+actor "Администратор" as admin
+
+entity "База заказов" as request_base
+entity "База работ" as work_base
+
+boundary "Окно рассмотрения заявок" as request_window
+boundary "Окно подробной\nинформации о заявке" as info_window
+boundary "Окно оформления заказа" as order_window
+
+control "Открытие окна\nподробной информации\nо заявке" as open_infoWindow
+control "Открытие окна\nрассмотрения заявок" as back_toRequest #red
+control "Окно об отказе в заяке" as unsuccesful
+control "Открытие окна\nоформления заказа" as succesful
+control "Заказ оформлен" as succesful_order
+'----------------------------------------------------
+admin -- request_window
+request_base --> open_infoWindow
+request_window --> open_infoWindow : Нажата кнопка\n'Рассмотреть'
+open_infoWindow --> info_window
+info_window --> back_toRequest : Нажата кнопка\n'Назад'
+back_toRequest --> request_window
+info_window --> unsuccesful : Нажата кнопка\n'Отказать'
+unsuccesful --> request_base
+info_window --> succesful : Нажата кнопка\n'Перейти к оформлению заказа'
+succesful --> order_window
+order_window --> succesful_order
+succesful_order --> work_base
+@enduml

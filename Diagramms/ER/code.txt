@@ -1,0 +1,35 @@
+@startuml
+entity Users {
+  * id : int
+  --
+  Login : string
+  Password : string
+  Name : string
+  Address : string
+  Telephone : string
+  Attribute : string
+}
+
+entity Orders {
+  * id : int
+  --
+  id_user : int
+  address_departure : string
+  address_destination : string
+  weight : int
+  description : string
+}
+
+entity Works {
+  * id : int
+  --
+  id_orders : int
+  id_first_drivers : int
+  id_second_drivers : int
+  price : float
+  status : string
+  
+}
+Works }|..|{ Orders
+Users ||..|| Orders
+@enduml

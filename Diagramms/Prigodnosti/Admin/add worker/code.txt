@@ -1,0 +1,28 @@
+@startuml
+actor "Администратор" as admin
+
+entity "База работников" as worker_base
+
+boundary "Окно выбора действий" as main_window
+boundary "Окно регистрации работника" as reg_window
+
+control "Открытие окна\nрегистрации работника" as open_reg
+control "Заполнение данных работника" as info_worker
+control "Работник внесен в базу" as add_worker
+control "Открытие окна выбора действий" as back_toWindow #red
+control "Окно об успешном\nдобавлении работника" as succesful
+control "Окно об неудачном\nдобавлении работника" as unsuccesful #red
+
+'---------------------------------------------------
+admin -- main_window
+main_window --> open_reg : Нажата кнопка\n'Зарегистрировать работника'
+open_reg --> reg_window
+reg_window --> info_worker
+reg_window --> back_toWindow :Нажата кнопка\n'Назад'
+back_toWindow --> main_window
+info_worker --> add_worker
+info_worker --> succesful :Успех
+info_worker --> unsuccesful :Неудача
+unsuccesful --> reg_window
+add_worker --> worker_base
+@enduml

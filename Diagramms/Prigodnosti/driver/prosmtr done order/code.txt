@@ -1,0 +1,19 @@
+@startuml
+actor "Водитель" as driver
+boundary "Окно выбора действия" as main_window
+boundary "Окно выполненных\nзаказов" as doneOrder_window
+
+control "Открытие окна просмотра\nвыполненных заказов" as open_window
+control "Открытие окна\nвыбора действий" as back_toWindow #red
+
+entity "База работ" as work_base
+
+'---------------------------------------
+
+driver -- main_window
+main_window --> open_window : Нажата кнопка\n'Просмотр выполненных заказов'
+work_base --> open_window
+open_window --> doneOrder_window
+doneOrder_window --> back_toWindow: Нажата кнопка\n'Назад'
+back_toWindow --> main_window 
+@enduml

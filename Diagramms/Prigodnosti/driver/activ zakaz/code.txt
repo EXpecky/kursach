@@ -1,0 +1,28 @@
+@startuml sign_in
+actor "Водитель" as driver
+boundary "Окно выбора действия" as main_window
+boundary "Окно просмотра\nактивного заказа" as order_window
+
+entity "База работ" as work_base
+
+control "Открытие окна\nактивного заказа" as open_order
+control "Оформление информации\nпо выполнению заказа" as design
+control "Окно об обновлении\nзаказа" as succesful
+control "Окно о неудачном\nобновлении заказа" as unsuccesful #red
+control "Информация о\nзаказе обновлена" as succesful_request
+control "Открытие окна\nвыбора действия" as back #red
+' -----------------------------------------------
+
+driver -- main_window
+main_window --> open_order : Нажата кнопка\n'Просмотр активного заказа'
+open_order --> order_window
+order_window --> design
+order_window --> back : Нажата кнопка\n'Назад'
+back --> main_window
+design --> succesful : Успех
+design --> unsuccesful : Неудача
+succesful --> succesful_request
+unsuccesful --> order_window
+succesful_request --> work_base
+work_base --> open_order
+@enduml

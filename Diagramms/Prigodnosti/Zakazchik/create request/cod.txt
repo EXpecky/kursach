@@ -1,0 +1,30 @@
+@startuml sign_in
+
+actor "Заказчик" as user
+boundary "Окно выбора действия" as main_window
+boundary "Окно подачи заявки" as request_window
+
+entity "База заказов" as request_base
+
+control "Открытие окна\nподачи заявок" as open_window
+control "Оформление информации\nо заказе" as design
+control "Окно об оформлении\nзаказа" as succesful
+control "Окно о неудачном\nоформлении заказа" as unsuccesful #red
+control "Заказ оформлен" as succesful_request
+control "Открытие окна\nвыбора действия" as back #red
+' -----------------------------------------------
+
+
+user -- main_window
+main_window --> open_window : Нажата кнопка\n'Подать заявку'
+open_window --> request_window
+request_window --> design
+request_window --> back : Нажата кнопка\n'Назад'
+back --> main_window
+design --> succesful : Успех
+design --> unsuccesful : Неудача
+design --> succesful_request
+unsuccesful --> request_window
+succesful_request --> request_base
+
+@enduml

@@ -1,0 +1,26 @@
+@startuml
+actor "Заказчик" as user
+boundary "Окно выбора действия" as main_window
+boundary "Окно существующих\nзаказов" as request_window
+boundary "Окно подробной\nинформации о заказе" as info_window
+
+control "Открытие окна\nпросмотра заявок" as open_window
+control "Открытие окна\nподробной информации о заказе" as open_infoWindow
+control "Открытие окна\nпросмотра заявок" as back_fromInfo #red
+control "Открытие окна\nвыбора действий" as back_toWindow #red
+
+entity "База заказов" as request_base
+
+'---------------------------------------
+
+user -- main_window
+main_window --> open_window : Нажата кнопка\n'Заказы'
+request_base --> open_window
+open_window --> request_window
+request_window --> back_toWindow: Нажата кнопка\n'Назад'
+back_toWindow --> main_window 
+request_window --> open_infoWindow : Нажато на заказ
+open_infoWindow --> info_window
+info_window --> back_fromInfo : Нажата кнопка\n'Назад'
+back_fromInfo --> request_window
+@enduml

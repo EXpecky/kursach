@@ -1,0 +1,24 @@
+@startuml
+actor "Бухгалтер" as buh
+
+entity "База работ" as work_base
+
+boundary "Окно списка заказов\nдля расччета" as ras_window
+boundary "Окно рассчета стоимости" as podrRas_window
+
+control "Открытие окна\nрассчета стоимости" as open_podrRas
+control "Открытие окна списка заказов\n для рассчета стоимости" as back_toRas #red
+control "Окно об успешном\nдобавлении стоимости к заказу" as succesful 
+control "Окно об неудачном\nдобавлении стоимости к заказу" as unsuccesful #red
+'---------------------------------------------
+buh -- ras_window
+work_base --> open_podrRas
+ras_window --> open_podrRas :Нажато на заказ\nдля рассчета
+open_podrRas --> podrRas_window
+podrRas_window --> back_toRas :Нажата кнопка\n'Назад'
+back_toRas --> ras_window
+podrRas_window --> succesful:Успех
+podrRas_window -->unsuccesful:Неудача
+succesful --> work_base:Обновление информации\nо заказе
+unsuccesful --> podrRas_window
+@enduml

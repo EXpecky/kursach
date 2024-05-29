@@ -1,0 +1,31 @@
+@startuml
+actor "Администратор" as admin
+
+boundary "Окно выбора действий" as main_window
+boundary "Окно регистрации работника" as reg_window
+
+entity "База работников" as worker_base
+
+control "Окно ошибки" as error #red
+
+'---------------------------------------------------
+admin -> main_window : Нажата кнопка 'Зарегистрировать работника'
+main_window -> reg_window : Отображение окна
+reg_window -> worker_base : Загрузка данных
+admin -> reg_window : Ввод данных
+admin -> reg_window : Нажата кнопка 'Подтвердить'
+
+alt Данные введены некорректно 
+   reg_window -> error : Отображение окна
+   error --> admin : Возвращение
+else Данные введены корректно
+   reg_window -> worker_base : Добавление работника
+   worker_base --> reg_window : Возвращение
+end
+
+opt
+   admin -> reg_window : Нажата кнопка 'Выйти'
+   reg_window --> main_window : Отображение окна
+   main_window --> admin : Возвращение
+end
+@enduml

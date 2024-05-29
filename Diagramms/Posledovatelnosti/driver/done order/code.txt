@@ -1,0 +1,25 @@
+@startuml
+actor "Водитель" as driver
+boundary "Окно выбора действия" as main_window
+boundary "Окно выполненных\nзаказов" as doneOrder_window
+
+entity "База работ" as work_base
+
+control "Окно ошибки" as error #red
+'---------------------------------------
+driver -> main_window : Нажата кнопка 'Список выполненных заказов'
+main_window -> doneOrder_window : Отображение окна
+doneOrder_window -> work_base : Загрузка данных
+
+alt БД пуста
+   doneOrder_window -> error : Отображение окна
+   error --> driver : Возвращение
+else БД не пуста
+   doneOrder_window --> driver : Отображение данных
+end
+opt
+   driver -> doneOrder_window : Нажата кнопка 'Выйти'
+   doneOrder_window --> main_window : Отображение окна
+   main_window --> driver : Возвращение
+end
+@enduml

@@ -1,0 +1,32 @@
+@startuml
+actor "Бухгалтер" as buh
+
+boundary "Окно выбора действий" as main_window
+boundary "Окно списка заказов\nдля расччета" as ras_window
+boundary "Окно рассчета стоимости" as podrRas_window
+
+entity "База работ" as work_base
+
+control "Окно ошибки" as error #red
+'---------------------------------------------
+buh -> main_window : Нажата кнопка 'Список заказов для расчета'
+main_window -> ras_window : Отображение окна
+buh -> ras_window : Нажата кнопка 'Рассчитать'
+ras_window -> podrRas_window : Отображение окна
+podrRas_window -> work_base : Загрузка данных
+buh -> podrRas_window : Ввод данных
+buh -> podrRas_window : Нажата кнопка 'Подтвердить'
+
+alt БД пуста
+   ras_window -> error : Отображение окна
+   error --> buh : Возвращение
+else БД не пуста
+   ras_window --> buh : Отобразить данные
+end
+
+opt
+   buh -> ras_window : Нажата кнопка 'Выйти'
+   ras_window --> main_window : Отображение окна
+   main_window --> buh : Возвращение
+end
+@enduml

@@ -1,0 +1,29 @@
+@startuml
+actor "Заказчик" as user
+boundary "Окно выбора действия" as main_window
+boundary "Окно подачи заявки" as request_window
+
+entity "База заказов" as request_base
+
+control "Окно ошибки" as error #red
+' -----------------------------------------------
+user -> main_window : Нажимает кнопку 'Подать заявку'
+main_window -> request_window : Отображение окна
+request_window -> request_base : Загрузка данных
+user -> request_window : Ввод данных 
+user -> request_window : Нажата кнопка 'Подтвердить'
+
+alt Данные введены некоректно
+   request_window -> error : Отображение окна
+   error --> user : Возврат
+else Данные введены корректно
+   request_window --> request_base : Отправление заявки
+   request_base --> request_window : Возврат 
+end
+
+opt 
+   user -> request_window : Нажата кнопка 'Выйти'
+   request_window --> main_window : Отображение окна
+   main_window --> user : Возврат
+end
+@enduml
