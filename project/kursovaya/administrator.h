@@ -7,6 +7,7 @@
 #include "orderdata.h"
 #include "adminmodel.h"
 #include "pickdriver.h"
+#include "infoorder.h"
 
 namespace Ui {
 class Administrator;
@@ -23,6 +24,7 @@ public:
 
 signals:
     void exit();
+    void getData(const QString client,const QString number,const QString email,const QString pointD,const QString pointP,const QString Discription,const int ves);
 
 private slots:
     void on_exit_clicked();
@@ -41,14 +43,14 @@ private slots:
 
     void on_grade_box_currentIndexChanged(int index);
 
-    void on_tableView_clicked(const QModelIndex &index);
-
-    void on_tableView_activated(const QModelIndex &index);
-
     void on_accept_pushButton_clicked();
 
     void getDataDriver(QString name, const QString secName, const bool flag);
 
+
+    void on_cancel_pushButton_clicked();
+
+    void on_tableView_doubleClicked(const QModelIndex &index);
 
 private:
     Ui::Administrator *ui;
@@ -56,6 +58,7 @@ private:
 
     PickDriver *pickD;
     AdminModel *orderModel;
+    InfoOrder *infoWindow;
 };
 
 #endif // ADMINISTRATOR_H

@@ -15,6 +15,7 @@ SOURCES += \
     db.cpp \
     driver.cpp \
     driverdata.cpp \
+    infoorder.cpp \
     main.cpp \
     mainwindow.cpp \
     orderdata.cpp \
@@ -29,6 +30,7 @@ HEADERS += \
     db.h \
     driver.h \
     driverdata.h \
+    infoorder.h \
     mainwindow.h \
     orderdata.h \
     pickdriver.h \
@@ -39,6 +41,7 @@ FORMS += \
     administrator.ui \
     buh.ui \
     driver.ui \
+    infoorder.ui \
     mainwindow.ui \
     pickdriver.ui \
     registration.ui \

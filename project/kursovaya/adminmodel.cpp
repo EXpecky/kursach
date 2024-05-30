@@ -1,13 +1,13 @@
 #include "adminmodel.h"
-#include "db.h"
+
 #include <algorithm>
 
 AdminModel::AdminModel(QObject* parent)
     :QAbstractTableModel{parent}
 {
-    Db database;
     //m_users = db.showUsers();
-    database.createOrderData(orders);
+    //orders.clear();
+    //database.createOrderData(orders);
 }
 
 int AdminModel::rowCount(const QModelIndex &parent) const
@@ -65,5 +65,38 @@ QVariant AdminModel::headerData(int section, Qt::Orientation orientation, int ro
 int AdminModel::getId(int index)
 {
     return orders.at(index).Id;
+}
+
+QString AdminModel::getClieint(int index)
+{
+    return orders.at(index).Client;
+}
+QString AdminModel::getDescription(int index)
+{
+    return orders.at(index).Discription;
+}
+QString AdminModel::getEmail(int index)
+{
+    return orders.at(index).Email;
+}
+QString AdminModel::getNumberPhone(int index)
+{
+    return orders.at(index).Number;
+}
+QString AdminModel::getPointDostav(int index)
+{
+    return orders.at(index).PointDostavki;
+}
+QString AdminModel::getPointPogruz(int index)
+{
+    return orders.at(index).PointPogruski;
+}
+int AdminModel::getVes(int index)
+{
+    return orders.at(index).VesGruza;
+}
+void AdminModel::createOrders()
+{
+    database.createOrderData(orders);
 }
 //}

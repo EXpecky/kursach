@@ -125,6 +125,7 @@ int Db::searchID(QString login)
 }
 void Db::createOrderData(QVector<orderData>& orders)
 {
+    orders.clear();
     orderData order;
     this->openDatabase();
     QSqlQuery query;
@@ -143,6 +144,7 @@ void Db::createOrderData(QVector<orderData>& orders)
         order.Number = query.value(7).toString();
         orders.append(order);
     }
+    //qDebug()<<orders.at(0).Client;
 
 }
 /* */
@@ -181,6 +183,20 @@ int Db::searchDriver(QString surname, QString name)
     query.bindValue(":name", name);
     query.exec();
     return query.next();
+}
+void Db::delOrder(int idOrder)
+{
+    QSqlQuery query;
+    query.prepare("DELETE FROM Orders WHERE ID = :id");
+    query.bindValue(":id", idOrder);
+    query.exec();
+}
+void Db::insertCancelOrder(int idOrder)
+{
+    QSqlQuery query;
+    query.prepare("INSERT INTO cancelOrder values(:id, :idOrder)");
+    query.bindValue(":idOrder", idOrder);
+    query.exec();
 }
 
 

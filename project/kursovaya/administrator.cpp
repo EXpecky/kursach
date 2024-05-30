@@ -10,18 +10,14 @@ Administrator::Administrator(QWidget *parent) :
     ui->stackedWidget->setCurrentWidget(ui->main_page);
     ui->stazh_lineEdit->hide();
     ui->label_3->hide();
+    //orderModel->destroyed();
 
-    orderModel = new AdminModel;
-    ui->tableView->setModel(orderModel);
-    //delete orderModel;
-    //ui->tableView->
-    //Db database;
-
+    //orderModel->layoutChanged();
     pickD  = new PickDriver();
-
-
     connect(pickD, &PickDriver::accept, this, &Administrator::getDataDriver);
 
+    infoWindow = new InfoOrder();
+    connect(this, &Administrator::getData, infoWindow, &InfoOrder::takeData);
 }
 
 Administrator::~Administrator()
@@ -39,7 +35,14 @@ void Administrator::on_exit_clicked()
 
 void Administrator::on_order_button_clicked()
 {
+
+    orderModel = new AdminModel;
+    orderModel->createOrders();
+    orderModel->layoutChanged();
+    ui->tableView->setModel(orderModel);
+
     ui->stackedWidget->setCurrentWidget(ui->order_page);
+    //orderModel->destroyed();
 }
 
 
@@ -132,50 +135,53 @@ void Administrator::on_grade_box_currentIndexChanged(int index)
         ui->label_3->hide();
     }
 }
-
-void Administrator::on_tableView_clicked(const QModelIndex &index)
-{
-    //qDebug() << index;
-//    if (index == 1){
-//        ui->stackedWidget->setCurrentWidget(ui->main_page);
-//    }
-//    qDebug() << ui->tableView->selectionModel()->selectedRows().first().row();
-}
-
-void Administrator::on_tableView_activated(const QModelIndex &index)
-{
-    qDebug() << index;
-    qDebug() << ui->tableView->selectionModel()->selectedIndexes().first().row();
-
-    //qDebug() << orderModel->orders.at(0);
-    //ui->tableView->setSelectionBehavior(QAbstractItemView.SelectRows);
-}
-
-
 void Administrator::on_accept_pushButton_clicked()
 {
-
     pickD->show();
-
-
-
 }
 void Administrator::getDataDriver(const QString name, const QString secName, const bool flag)
 {
     database.openDatabase();
     int indexOrder = ui->tableView->selectionModel()->selectedRows().first().row();
-    qDebug() << flag;
     if (flag == false){
         QVector<QString> fDriver;
         fDriver = name.split(" ");
         database.insertWorks(fDriver.at(0), fDriver.at(1),"NULL", "NULL", orderModel->getId(indexOrder));
+        database.delOrder(orderModel->getId(indexOrder));
+        orderModel->createOrders();
+        orderModel->layoutChanged();
+        ui->tableView->setModel(orderModel);
+//        orderModel = new AdminModel;
+//        orderModel->layoutChanged();
+        //ui->tableView->setModel(orderModel);
     }else{
         QVector <QString> fDriver;
         fDriver = name.split(" ");
         QVector <QString> sDriver;
         sDriver = secName.split(" ");
         database.insertWorks(fDriver.at(0), fDriver.at(1), sDriver.at(0), sDriver.at(1), orderModel->getId(indexOrder));
+        database.delOrder(orderModel->getId(indexOrder));
+        orderModel->createOrders();
+        orderModel->layoutChanged();
+        ui->tableView->setModel(orderModel);
     }
 
+}
+void Administrator::on_cancel_pushButton_clicked()
+{
+    database.openDatabase();
+    int indexOrder = ui->tableView->selectionModel()->selectedRows().first().row();
+    database.insertCancelOrder(orderModel->getId(indexOrder));
+    database.delOrder(orderModel->getId(indexOrder));
+    orderModel->createOrders();
+    orderModel->layoutChanged();
+    ui->tableView->setModel(orderModel);
+}
+
+void Administrator::on_tableView_doubleClicked(const QModelIndex &index)
+{
+    int indexOrder = ui->tableView->selectionModel()->selectedIndexes().first().row();
+    emit getData(orderModel->getClieint(indexOrder),orderModel->getNumberPhone(indexOrder),orderModel->getEmail(indexOrder),orderModel->getPointDostav(indexOrder),orderModel->getPointPogruz(indexOrder),orderModel->getDescription(indexOrder),orderModel->getVes(indexOrder));
+    infoWindow->show();
 }
 

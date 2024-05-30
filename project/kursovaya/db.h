@@ -29,6 +29,8 @@ public:
     bool insertWorks(QString surnFDriver, QString nameFDriver, QString surnSDriver, QString nameSDriver, int idOrd);
     void selectDriver(QVector<QString>& driverVector);
     int searchDriver(QString surname, QString name);
+    void delOrder(int idOrder);
+    void insertCancelOrder(int idOrder);
     //int searchIdDriver();
 };
 
