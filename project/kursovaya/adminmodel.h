@@ -20,15 +20,9 @@ public:
     QVariant data(const QModelIndex &index, int role) const;
     QVariant headerData(int section, Qt::Orientation orientation, int role) const;
 
-    int getId (int index);
-    QString getClieint (int index);
-    QString getPointDostav (int index);
-    QString getPointPogruz (int index);
-    QString getDescription (int index);
-    QString getEmail (int index);
-    QString getNumberPhone (int index);
-    int getVes (int index);
 
+    QVector<orderData> &getOrders();
+    void removeOrder(int index);
     void createOrders();
    // void sortByLogin();
 

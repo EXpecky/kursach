@@ -16,6 +16,7 @@ PickDriver::PickDriver(QWidget *parent) :
     ui->comboBox_2->hide();
     ui->label_2->hide();
     ui->daleteSecond_pushButton->hide();
+
 }
 
 PickDriver::~PickDriver()
@@ -56,10 +57,15 @@ void PickDriver::on_daleteSecond_pushButton_clicked()
 
 void PickDriver::on_accept_pushButton_clicked()
 {
-    emit accept(ui->comboBox->currentText(), ui->comboBox_2->currentText(), ui->comboBox_2->isVisible());
-    qDebug() << ui->comboBox_2->isVisible();
-    QMessageBox::information(this,"Успех!","Заявка подтверждена","ОК");
-    this->close();
+    if(ui->comboBox->count() == 0){
+        QMessageBox::critical(this,"Предупреждение!","Все водители в данный момент заняты,\nЗаказ не может быть подтвержден","ОК");
+        this->close();
+    }else{
+        emit accept(ui->comboBox->currentText(), ui->comboBox_2->currentText(), ui->comboBox_2->isVisible());
+        qDebug() << ui->comboBox_2->isVisible();
+        QMessageBox::information(this,"Успех!","Заявка подтверждена","ОК");
+        this->close();
+    }
 }
 
 

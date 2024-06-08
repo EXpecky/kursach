@@ -2,6 +2,10 @@
 #define DRIVER_H
 
 #include <QWidget>
+#include "activzakaz.h"
+#include "db.h"
+#include "drivermodel.h"
+#include "QMessageBox"
 
 namespace Ui {
 class Driver;
@@ -15,6 +19,7 @@ public:
     explicit Driver(QWidget *parent = nullptr);
     ~Driver();
 
+    void setIdLogin(int id, QString login);
 signals:
     void exit();
 
@@ -29,8 +34,17 @@ private slots:
 
     void on_back_button_clicked();
 
+
+
+    void on_accept_button_clicked();
+
 private:
+    QVector<activZakaz> activWorks;
     Ui::Driver *ui;
+    Db database;
+    int Id;
+    QString login;
+    driverModel *dModel;
 };
 
 #endif // DRIVER_H

@@ -8,7 +8,7 @@
 #include "adminmodel.h"
 #include "pickdriver.h"
 #include "infoorder.h"
-
+#include <QRegularExpressionValidator>
 namespace Ui {
 class Administrator;
 }
@@ -24,7 +24,7 @@ public:
 
 signals:
     void exit();
-    void getData(const QString client,const QString number,const QString email,const QString pointD,const QString pointP,const QString Discription,const int ves);
+    void getData(const QVector<orderData>& orders, const int index);
 
 private slots:
     void on_exit_clicked();
@@ -47,18 +47,17 @@ private slots:
 
     void getDataDriver(QString name, const QString secName, const bool flag);
 
-
     void on_cancel_pushButton_clicked();
 
-    void on_tableView_doubleClicked(const QModelIndex &index);
+    void on_tableView_doubleClicked();
 
 private:
     Ui::Administrator *ui;
     Db database;
-
     PickDriver *pickD;
     AdminModel *orderModel;
     InfoOrder *infoWindow;
+    QRegularExpressionValidator *validator;
 };
 
 #endif // ADMINISTRATOR_H

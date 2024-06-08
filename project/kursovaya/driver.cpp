@@ -20,15 +20,35 @@ void Driver::on_exit_clicked()
     emit exit();
 }
 
-
+void Driver::setIdLogin(int id, QString login)
+{
+    this->Id = id;
+    this->login = login;
+}
 void Driver::on_activOrder_button_clicked()
 {
-    ui->stackedWidget->setCurrentWidget(ui->activOrder_page);
+    database.openDatabase();
+    database.createZakazData(activWorks, Id);
+    if(activWorks.isEmpty()){
+        QMessageBox::information(this,"Внимание!","У вас нет активного заказа","OK");
+    }else {
+        ui->Client_lineEdit->setText(activWorks.at(0).Client);
+        ui->discription_lineEdit->setText(activWorks.at(0).Discription);
+        ui->pointD_lineEdit->setText(activWorks.at(0).pointD);
+        ui->pointP_lineEdit->setText(activWorks.at(0).pointP);
+        ui->ves_lineEdit->setText(QString::number(activWorks.at(0).vesGruza));
+        ui->Number_lineEdit->setText(activWorks.at(0).Number);
+        ui->stackedWidget->setCurrentWidget(ui->activOrder_page);
+    }
 }
 
 
 void Driver::on_listDoneOrder_button_clicked()
 {
+    dModel = new driverModel;
+    dModel->createZakaz(this->Id);
+    dModel->layoutChanged();
+    ui->tableView->setModel(dModel);
     ui->stackedWidget->setCurrentWidget(ui->list_page);
 }
 
@@ -42,5 +62,11 @@ void Driver::on_back_button_2_clicked()
 void Driver::on_back_button_clicked()
 {
     ui->stackedWidget->setCurrentWidget(ui->main_page);
+}
+
+
+void Driver::on_accept_button_clicked()
+{
+    database.updateGradeWorks(ui->comboBox->currentText(),activWorks.at(0).Id);
 }
 

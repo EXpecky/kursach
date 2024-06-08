@@ -6,6 +6,7 @@
 #include <QVector>
 
 #include "orderdata.h"
+#include "activzakaz.h"
 
 class Db
 {
@@ -31,6 +32,19 @@ public:
     int searchDriver(QString surname, QString name);
     void delOrder(int idOrder);
     void insertCancelOrder(int idOrder);
+    void uodateAcceptOrders(int idOrder);
+    void updateCancelOrders(int idOrder);
+    void createUOrderData(QVector<orderData>& userOrders, int idClient);
+    QString searchSurnClient(int idOrder);
+    void createZakazData(QVector<activZakaz>& activWorks, int idDriver);
+    int searchIdDriver(QString login);
+    bool driverIsBusy(int idDriver);
+    void createCompleteZakazData(QVector<activZakaz> &zakazs, int idDriver);
+    void createCostZakaz(QVector<activZakaz> &worksToCost);
+    void insertCost(int index, float Cost, QString dangerous);
+    void createUWorks(QVector<activZakaz> &userWorks, int idU);
+    void updateGradeWorks(QString grade, int idW);
+    bool searchLogPass(QString login, QString pass);
     //int searchIdDriver();
 };
 

@@ -2,7 +2,7 @@
 #define INFOORDER_H
 
 #include <QWidget>
-
+#include "orderdata.h"
 namespace Ui {
 class InfoOrder;
 }
@@ -16,7 +16,7 @@ public:
     ~InfoOrder();
 
 public slots:
-    void takeData(const QString client, const QString number, const QString email, const QString pointD, const QString pointP, const QString Discription, const int ves);
+    void takeData(const QVector<orderData> &orders, const int index);
 
 private slots:
     void on_accept_pushButton_clicked();

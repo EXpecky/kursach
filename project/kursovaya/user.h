@@ -4,6 +4,9 @@
 #include <QWidget>
 #include <QMessageBox>
 #include "db.h"
+#include "usermodel.h"
+#include "userworksmodel.h"
+#include <QRegularExpressionValidator>
 namespace Ui {
 class User;
 }
@@ -18,10 +21,10 @@ public:
 
 signals:
     void exit();
+    void idData(const int id);
 
 public:
-    int Id;
-    QString login;
+
     void setIdLogin(int id, QString llogin);
 
 private slots:
@@ -39,10 +42,21 @@ private slots:
 
     bool correctNumber(QString number);
 
+    int getId();
+
+    QString getLogin();
+
+
 
 private:
+    int Id;
+    QString login;
     Ui::User *ui;
     Db database;
+    userModel *userOrderModel;
+    userWorksModel * userWModel;
+    QRegularExpressionValidator *validator;
+    \
 };
 
 #endif // USER_H

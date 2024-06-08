@@ -61,39 +61,13 @@ QVariant AdminModel::headerData(int section, Qt::Orientation orientation, int ro
     }
     return {};
 }
-
-int AdminModel::getId(int index)
+QVector<orderData>& AdminModel::getOrders()
 {
-    return orders.at(index).Id;
+    return this->orders;
 }
-
-QString AdminModel::getClieint(int index)
+void AdminModel::removeOrder(int index)
 {
-    return orders.at(index).Client;
-}
-QString AdminModel::getDescription(int index)
-{
-    return orders.at(index).Discription;
-}
-QString AdminModel::getEmail(int index)
-{
-    return orders.at(index).Email;
-}
-QString AdminModel::getNumberPhone(int index)
-{
-    return orders.at(index).Number;
-}
-QString AdminModel::getPointDostav(int index)
-{
-    return orders.at(index).PointDostavki;
-}
-QString AdminModel::getPointPogruz(int index)
-{
-    return orders.at(index).PointPogruski;
-}
-int AdminModel::getVes(int index)
-{
-    return orders.at(index).VesGruza;
+    orders.removeAt(index);
 }
 void AdminModel::createOrders()
 {

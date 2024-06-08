@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QMessageBox>
+#include <QMessageBox>
 #include "db.h"
 #include "driverdata.h"
 

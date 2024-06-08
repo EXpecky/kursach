@@ -4,7 +4,7 @@
 #include <QDialog>
 #include <QMessageBox>
 #include "db.h"
-
+#include <QRegularExpressionValidator>
 
 namespace Ui {
 class registration;
@@ -31,6 +31,7 @@ private slots:
 private:
     Ui::registration *ui;
     Db database;
+    QRegularExpressionValidator *validator;
 };
 
 #endif // REGISTRATION_H

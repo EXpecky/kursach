@@ -7,6 +7,10 @@ registration::registration(QWidget *parent) :
 {
     ui->setupUi(this);
     Db databse;
+    ui->numberPhone_lineEdit->setValidator(
+        new QRegularExpressionValidator(
+            QRegularExpression(R"([+0-9]{12})")));
+
 }
 
 registration::~registration()
@@ -23,30 +27,34 @@ void registration::on_pushButton_2_clicked()
 
 void registration::on_pushButton_clicked()
 {
-    QString login = ui->login_lineEdit->text();
-    QString pass = ui->password_lineEdit->text();
-    QString surn = ui->surname_lineEdit->text();
-    QString name = ui->name_lineEdit->text();
-    QString patr = ui->patronomyc_lineEdit->text();
-    QString email = ui->email_lineEdit->text();
-    QString number = ui->numberPhone_lineEdit->text();
-    database.openDatabase();
-    if(!(registration::correctNumber(number))){
-        QMessageBox::critical(this,"Предупреждение!","Поле номера телефона введено неверно");
-        ui->numberPhone_lineEdit->setText("");
-        return;
-    }
-    if (database.correctLogin(login)){
-        if(database.insertDataU(login, pass, "Заказчик") and database.insertUsers(surn,name,patr,email,number)){
-            QMessageBox::warning(this,"Успех!","Регистрация прошла успешно!","OK");
-            this->close();
-            emit back();
-        }else {
-            QMessageBox::critical(this,"Предупреждение!","Неверно введены поля!");
+    if(ui->login_lineEdit->text().isEmpty() or ui->password_lineEdit->text().isEmpty() or ui->surname_lineEdit->text().isEmpty() or ui->name_lineEdit->text().isEmpty() or ui->email_lineEdit->text().isEmpty() or ui->numberPhone_lineEdit->text().isEmpty()){
+        QMessageBox::critical(this,"Ошибка!","Введены не все поля","OK");
+        }else{
+        QString login = ui->login_lineEdit->text();
+        QString pass = ui->password_lineEdit->text();
+        QString surn = ui->surname_lineEdit->text();
+        QString name = ui->name_lineEdit->text();
+        QString patr = ui->patronomyc_lineEdit->text();
+        QString email = ui->email_lineEdit->text();
+        QString number = ui->numberPhone_lineEdit->text();
+        database.openDatabase();
+        if(!(registration::correctNumber(number))){
+            QMessageBox::critical(this,"Предупреждение!","Поле номера телефона введено неверно");
+            ui->numberPhone_lineEdit->setText("");
+            return;
         }
-    }else{
-        QMessageBox::critical(this,"Предупреждение!","Данный логин уже существует!");
-        ui->login_lineEdit->setText("");
+        if (database.correctLogin(login)){
+            if(database.insertDataU(login, pass, "Заказчик") and database.insertUsers(surn,name,patr,email,number)){
+                QMessageBox::warning(this,"Успех!","Регистрация прошла успешно!","OK");
+                this->close();
+                emit back();
+            }else {
+                QMessageBox::critical(this,"Предупреждение!","Неверно введены поля!");
+            }
+        }else{
+            QMessageBox::critical(this,"Предупреждение!","Данный логин уже существует!");
+            ui->login_lineEdit->setText("");
+        }
     }
     database.closeDatabase();
 

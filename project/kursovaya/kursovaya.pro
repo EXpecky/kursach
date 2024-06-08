@@ -9,37 +9,50 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    activzakaz.cpp \
     administrator.cpp \
     adminmodel.cpp \
     buh.cpp \
+    buhmodel.cpp \
+    cost.cpp \
     db.cpp \
     driver.cpp \
     driverdata.cpp \
+    drivermodel.cpp \
     infoorder.cpp \
     main.cpp \
     mainwindow.cpp \
     orderdata.cpp \
     pickdriver.cpp \
     registration.cpp \
-    user.cpp
+    user.cpp \
+    usermodel.cpp \
+    userworksmodel.cpp
 
 HEADERS += \
+    activzakaz.h \
     administrator.h \
     adminmodel.h \
     buh.h \
+    buhmodel.h \
+    cost.h \
     db.h \
     driver.h \
     driverdata.h \
+    drivermodel.h \
     infoorder.h \
     mainwindow.h \
     orderdata.h \
     pickdriver.h \
     registration.h \
-    user.h
+    user.h \
+    usermodel.h \
+    userworksmodel.h
 
 FORMS += \
     administrator.ui \
     buh.ui \
+    cost.ui \
     driver.ui \
     infoorder.ui \
     mainwindow.ui \

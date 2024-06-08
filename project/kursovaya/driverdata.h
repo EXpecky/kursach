@@ -6,6 +6,8 @@ class DriverData
 {
 public:
     DriverData();
+
+
 };
 
 #endif // DRIVERDATA_H

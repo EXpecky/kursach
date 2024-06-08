@@ -44,19 +44,25 @@ void MainWindow::on_VoitiPushB_clicked()
     QString login = ui->lineEdit->text();
     QString pass = ui->lineEdit_2->text();
     database.openDatabase();
-    if(database.autorization(login, pass) == "Администратор"){
-        adminWindow->show();
-        this->close();
-    }else if(database.autorization(login, pass) == "Водитель"){
-        driverWindow->show();
-        this->close();
-    }else if(database.autorization(login, pass) == "Заказчик"){
-        userWindow->setIdLogin(database.searchID(login), login);
-        userWindow->show();
-        this->close();
-    }else if(database.autorization(login, pass) == "Бухгалтер"){
-        buhWindow->show();
-        this->close();
+    if (database.searchLogPass(login, pass)){
+
+        if(database.autorization(login, pass) == "Администратор"){
+            adminWindow->show();
+            this->close();
+        }else if(database.autorization(login, pass) == "Водитель"){
+            driverWindow->setIdLogin(database.searchIdDriver(login),login);
+            driverWindow->show();
+            this->close();
+        }else if(database.autorization(login, pass) == "Заказчик"){
+            userWindow->setIdLogin(database.searchID(login), login);
+            userWindow->show();
+            this->close();
+        }else if(database.autorization(login, pass) == "Бухгалтер"){
+            buhWindow->show();
+            this->close();
+        }
+    }else{
+        QMessageBox::critical(this, "Ошибка!","Невернный логин или пароль!","OK");
     }
     database.closeDatabase();
 

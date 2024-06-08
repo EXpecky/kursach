@@ -2,6 +2,9 @@
 #define BUH_H
 
 #include <QWidget>
+#include <buhmodel.h>
+#include <cost.h>
+#include "db.h"
 
 namespace Ui {
 class Buh;
@@ -25,8 +28,17 @@ private slots:
 
     void on_back_button_clicked();
 
+    void on_tableView_doubleClicked();
+
+    void createCost(const float Costtt, const QString dangerous);
+
 private:
     Ui::Buh *ui;
+    buhModel *costModel;
+    Cost *costWindow;
+    int index = 0;
+    Db database;
+
 };
 
 #endif // BUH_H

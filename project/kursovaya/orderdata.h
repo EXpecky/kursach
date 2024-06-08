@@ -15,6 +15,7 @@ public:
     QString PointPogruski;
     QString PointDostavki;
     int VesGruza;
+    QString Grade;
 };
 
 #endif // ORDERDATA_H
